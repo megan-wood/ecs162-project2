@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(200, 241, 255);
+    background-color: rgb(222, 247, 255);
     font-family: Geneva, Verdana, sans-serif;
 }
 
@@ -16,18 +16,16 @@ body {
     color: white;
 
 }
-
 .nav-item {
-    display: inline;
-    
+    float: left;
 }
 
 .nav-item a {
     color: white;
     text-decoration: none;
     /* padding: 14px 16px; */
-    padding: 20px;
-    display: inline;
+    padding: 15px;
+    display: block;
 }
 
 
