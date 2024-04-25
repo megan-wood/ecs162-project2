@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(200, 241, 255);
+    font-family: Geneva, Verdana, sans-serif;
+}
+
+.top {
+    text-align: center
+}
+
+.nav-bar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+
+}
+
+.nav-item {
+    display: inline;
+    
+}
+
+.nav-item a {
+    color: white;
+    text-decoration: none;
+    /* padding: 14px 16px; */
+    padding: 20px;
+    display: inline;
+}
+
+
+
+.nav-item.inactive a:hover {
+    color: black;
+    background-color: white;
+
+}
