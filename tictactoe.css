@@ -2,7 +2,9 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Creates a 3x3 grid */
     gap: 10px; /* Space between cells */
-    margin: 20px auto; /* Centering the grid */
+    /* margin: 20px auto;  Centering the grid */
+    justify-content: center;
+    align-content: center;
     max-width: 300px; /* Restricting the maximum width of the grid */
 }
 
