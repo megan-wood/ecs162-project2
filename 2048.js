@@ -70,7 +70,7 @@ function moveLeft() {
     const rightBoundary = [3, 7, 11, 15];
     let value = 0;
     for (let i = 0; i < boardDimension; ++i ) {  // 0 to 3
-        moveValuesInRowLeft(leftBoundary[i]);
+        moveValuesInRowLeft(leftBoundary[i], rightBoundary[i]);
     }
     // for (let i = 0; i < cells.length; ++i) {
     //     let row = determineRow(i);
@@ -91,7 +91,7 @@ function moveLeft() {
 function moveRowLeft(leftEnd, rightEnd) {
     // The leftEnd and rightEnd are the indices of the cells on the left and right walls respectively
     let value = 0;
-    moveValuesInRowLeft(leftEnd);
+    moveValuesInRowLeft(leftEnd, rightEnd);
     addValuesInRowLeft(leftEnd);
 
     // for (let i = leftEnd; i < boardDimension; ++i) {  // iterate through columns
@@ -106,10 +106,10 @@ function moveRowLeft(leftEnd, rightEnd) {
     // }
 }
 
-function moveValuesInRowLeft(leftEnd) {
+function moveValuesInRowLeft(leftEnd, rightEnd) {
     let curIndex = 0, nextIndex = 0; 
     for (let i = 0; i < boardDimension; ++i) {
-        while (leadingEmptyCells(i)) {  // keep shifting cells over while there are leading empty cells
+        while (leadingEmptyCells(leftEnd + i, rightEnd)) {  // keep shifting cells over while there are leading empty cells
             for (let j = 1; j < boardDimension; ++j) {
                 curIndex = leftEnd + j - 1;
                 nextIndex = leftEnd + j;
@@ -125,12 +125,12 @@ function moveValuesInRowLeft(leftEnd) {
 }
 
 
-function leadingEmptyCells(leftEnd) {
+function leadingEmptyCells(leftEnd, rightEnd) {
     // Go through row and see if there are spaces before the first cell that a value
     // Make sure that there are values in the row, otherwise there are no leading empty cells
-    let firstFilledCellIndex = -1; 
+    let firstFilledCellIndex = -1, curIndex = 0; 
     let empty = false; 
-    for (let i = 0; i < boardDimension; ++i) {
+    for (let i = 0; i + leftEnd <= rightEnd; ++i) {  // while the current index is less than or equal to the right wall's index
         curIndex = leftEnd + i;
         if (!emptyCell(curIndex) && curIndex == leftEnd) {  // no leading empty cells if first one is filled
             return false; 
@@ -201,7 +201,10 @@ function playGame() {
     // Generate first two initial values on the board 
     placeNumber();
     placeNumber();
-    // gameState = ["", 2, "", 2, "", "", "", "", "", "", "", "", "", "", "", ""]
+    // gameState = ["", "", "", "", 
+    //              "", 2, "", "", 
+    //              "", "", 2, "", 
+    //              "", "", "", ""];
     // updateGameStatus();
 }
 
