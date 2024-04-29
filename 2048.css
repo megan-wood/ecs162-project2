@@ -1,4 +1,8 @@
-.board {
+h2 {
+    margin-bottom: 10px;
+}
+
+#board {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 5px;
@@ -34,4 +38,31 @@
 #testing {
     text-align: center;
     font-size: 30px;
+}
+
+.score {
+    text-align: center;
+    margin: auto;
+    width: 100px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+#score-title {
+    /* background-color: rgb(212, 212, 212); */
+    background-color: lavender;
+    /* border: 2px solid purple; */
+    /* border-width: 2px 2px 0px 2px; */
+    border-radius: 5px 5px 0px 0px; 
+    padding: 10px;
+    /* margin-bottom: 0px;
+    margin-top: 0px;  */
+    margin: 0px;
+}
+
+#score-value {
+    padding: 10px; 
+    margin-top: 0px;
+    height: 22px;
+    margin-bottom: 10px;
 }
