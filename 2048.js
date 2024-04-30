@@ -210,7 +210,22 @@ function addValuesInRowRight(rightEnd) {
 
 function moveUp() {
     const upBoundary = [0, 1, 2, 3];
-
+    const downBoundary = [12, 13, 14, 15];
+    let curIndex = 0, nextIndex = 0; 
+    for (let i = 0; i < boardDimension; ++i) {
+        // while (leadingEmptyCellsFromTop(upBoundary + i, rightEnd)) {  // keep shifting cells over while there are leading empty cells
+            for (let j = 1; j < boardDimension; ++j) {  // go through each column
+                curIndex = leftEnd + j - 1;
+                nextIndex = leftEnd + j;
+                if (emptyCell(curIndex) && !emptyCell(nextIndex)) {
+                    gameState[curIndex] = gameState[nextIndex];
+                    gameState[nextIndex] = "";
+                } else if (emptyCell[curIndex] && emptyCell(nextIndex)) {
+                    continue;
+                }
+            }
+        // }
+    }
 }
 
 function moveDown() {
