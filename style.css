@@ -64,17 +64,33 @@ h2 {
 
 
 .games {
-    display: flex;
+    /* display: flex; */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /*Creates a 3x3 grid*/
     justify-content: center;
     /* background-color: rgb(222, 247, 255); */
     background-color: white;
     border-radius: 10px;
+    /* flex-wrap: wrap;
+    flex-direction: row; */
+    gap: 10px; /* Space between cells */
+    margin: 20px auto;  /* Centering the grid */
+    align-content: center;
+    max-width: 50%; /*Restricting the maximum width of the grid*/
+
 }
 
 .games img {
     height: 200px;
     padding: 20px;
     border-radius: 50px;
+    margin: auto;
+}
+
+.flex-item {
+    /* width: 50%;  */
+    /* margin: auto;
+    margin-left: 50px; */
 }
 
 footer {

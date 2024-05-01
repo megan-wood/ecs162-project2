@@ -4,10 +4,6 @@ let gameState = ["", "", "", "",
                  "", "", "", "", 
                  "", "", "", "", 
                  "", "", "", ""];
-// let gameState = [["", "", "", ""],
-//                  ["", "", "", ""], 
-//                  ["", "", "", ""], 
-//                  ["", "", "", ""]];
 const boardDimension = 4;
 let score = 0;
 
@@ -19,12 +15,49 @@ document.addEventListener("DOMContentLoaded", () => {
     // document.getElementById('restartButton').addEventListener("click", resartGame);
 });
 
+function playGame() {
+    gameActive = true;
+    gameState = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    cells.forEach(cell => {
+        cell.innerHTML = "";  // Reset value in cell 
+        cell.className = "cell";  // Reset classes
+    })
+    // Generate first two initial values on the board 
+    // placeNumber();
+    // placeNumber();
+    gameState = [2, "", "", "", 
+                 2, "", "", "", 
+                 "", "", "", "", 
+                 "", "", "", ""];
+    updateGameStatus();
+}
+
+function placeNumber() {
+    // randomize an index from 0 to 15
+    let index = Math.floor(Math.random() * 16);
+    const num = Math.random() < 0.9 ? 2 : 4;
+    let pickedCell = null; 
+
+    // generate another random index until it finds an empty cell if game is active
+    while (gameActive && !emptyCell(index)) {
+        index = Math.floor(Math.random() * 16);
+    }
+
+    gameState[index] = num;
+    pickedCell = cells[index];
+    pickedCell.innerHTML = num; 
+}
+
+function emptyCell(index) {
+    return gameState[index] == '';
+}
+
 function handleKeydown(keyboardEvent) {
     const direction = keyboardEvent.key;
     // const clickedCellIndex = parseInt(pressedKey.getAttribute("data-cell-index"));
     if (gameActive && validDirection(direction)) {
         keyboardEvent.preventDefault();  // prevents pressing the arrow keys from scrolling the page
-        document.getElementById('testing').innerText += " " + keyboardEvent.key;
+        document.getElementById('results').innerText += " " + keyboardEvent.key;
         handleArrowKey(direction);
         updateGameStatus();  // updates score and checks if the game is over (won or filled board)
         placeNumber();  // place another random number at a random empty cell
@@ -52,6 +85,19 @@ function handleArrowKey(key) {
         moveUp();
     } else {  // key is ArrowDown
         moveDown();
+    }
+}
+
+function sameNumber(i, j) {
+    return gameState[i] === gameState[j];
+}
+
+function updateGameStatus() {
+    for (let i = 0; i < gameState.length; ++i) {
+        cells[i].innerHTML = gameState[i];
+    }
+    if (game_won() || board_full()) {
+        gameActive = false; 
     }
 }
 
@@ -211,9 +257,20 @@ function addValuesInRowRight(rightEnd) {
 function moveUp() {
     const upBoundary = [0, 1, 2, 3];
     const downBoundary = [12, 13, 14, 15];
+    for (let i = 0; i < boardDimension; ++i ) {  // go through each row, 0 to 3
+        // shift values as far right as they can go (either hits the wall or other cells)
+        moveValuesInRowUp(upBoundary[i], downBoundary[i]);
+        // add the values from right to left if the cells are the same value 
+        // addValuesInRowUp(rightBoundary[i]);
+        // shift the values as far right as they can go again
+        // moveValuesInRowUp(leftBoundary[i], rightBoundary[i]);
+    }
+}
+
+function moveValuesInRowUp() {
     let curIndex = 0, nextIndex = 0; 
     for (let i = 0; i < boardDimension; ++i) {
-        // while (leadingEmptyCellsFromTop(upBoundary + i, rightEnd)) {  // keep shifting cells over while there are leading empty cells
+        // while (leadingEmptyCellsFromTop(upBoundary + i, downBoundary)) {  // keep shifting cells d while there are leading empty cells
             for (let j = 1; j < boardDimension; ++j) {  // go through each column
                 curIndex = leftEnd + j - 1;
                 nextIndex = leftEnd + j;
@@ -229,8 +286,35 @@ function moveUp() {
 }
 
 function moveDown() {
+    const upBoundary = [0, 1, 2, 3];
     const downBoundary = [12, 13, 14, 15];
+    for (let i = 0; i < boardDimension; ++i ) {  // go through each row, 0 to 3
+        // shift values as far right as they can go (either hits the wall or other cells)
+        moveValuesInRowDown(upBoundary[i], downBoundary[i]);
+        // add the values from right to left if the cells are the same value 
+        // addValuesInRowDown(rightBoundary[i]);
+        // shift the values as far right as they can go again
+        // moveValuesInRowDown(leftBoundary[i], rightBoundary[i]);
+    }
+}
 
+function moveValuesInRowDown(upEnd, downEnd) {
+    let curIndex = 0, nextIndex = 0;
+    // start from the bottom and shift values down one at a time
+    for (let i = 0; i < boardDimension; ++i) {
+        // while (leadingEmptyCellsFromTop(upEnd + i, downEnd)) {  // keep shifting cells d while there are leading empty cells
+            for (let j = 0; j + downEnd < upEnd; j -= 4) {  // go through each row (cells are 4 indices apart)
+                curIndex = downEnd + j;
+                nextIndex = downEnd + j - 4;
+                if (emptyCell(curIndex) && !emptyCell(nextIndex)) {
+                    gameState[curIndex] = gameState[nextIndex];
+                    gameState[nextIndex] = "";
+                } else if (emptyCell[curIndex] && emptyCell(nextIndex)) {
+                    continue;
+                }
+            }
+        // }
+    }
 }
 
 function determineRow(index) {
@@ -254,51 +338,27 @@ function inBoundary(index, row, boundary) {
     return false; 
 }
 
-function sameNumber(i, j) {
-    return gameState[i] === gameState[j];
-}
-
-function playGame() {
-    gameActive = true;
-    gameState = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
-    cells.forEach(cell => {
-        cell.innerHTML = "";  // Reset value in cell 
-        cell.className = "cell";  // Reset classes
-    })
-    // Generate first two initial values on the board 
-    placeNumber();
-    placeNumber();
-    // gameState = ["", "", "", "", 
-    //              "", "", "", "", 
-    //              2, 2, 2, 2, 
-    //              8, 4, 4, ""];
-    // updateGameStatus();
-}
-
-function placeNumber() {
-    // randomize an index from 0 to 15
-    let index = Math.floor(Math.random() * 16);
-    const num = Math.random() < 0.9 ? 2 : 4;
-    let pickedCell = null; 
-
-    // generate another random index until it finds an empty cell
-    while (!emptyCell(index)) {
-        index = Math.floor(Math.random() * 16);
+function game_won() {
+    // game is won when there is a cell with value 2048 
+    // can also reach the maximum value
+    for (let i = 0; i < cells.length; ++i) {
+        if (cells[i].innerHTML === 2048) {
+            document.getElementById("results").innerHTML += " You won!";
+            return true; 
+        }
     }
-
-    gameState[index] = num;
-    pickedCell = cells[index];
-    pickedCell.innerHTML = num; 
+    return false; 
 }
 
-function emptyCell(index) {
-    return gameState[index] == '';
-}
-
-function updateGameStatus() {
-    for (let i = 0; i < gameState.length; ++i) {
-        cells[i].innerHTML = gameState[i];
+function board_full() {
+    // go through all the cells andc check if they are empty, if true, then board is not empty
+    for (let i = 0; i < cells.length; ++i) {
+        if (cells[i].innerHTML === "") {
+            return false; 
+        }
     }
+    document.getElementById("results").innerHTML += " Game over."
+    return true; 
 }
 
 // function getPickedCell(index) {
