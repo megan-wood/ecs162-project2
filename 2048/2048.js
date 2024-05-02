@@ -23,13 +23,13 @@ function playGame() {
         cell.className = "cell";  // Reset classes
     })
     // Generate first two initial values on the board 
-    // placeNumber();
-    // placeNumber();
-    gameState = [2, "", "", "", 
-                 2, "", "", "", 
-                 "", "", "", "", 
-                 "", "", "", ""];
-    updateGameStatus();
+    placeNumber();
+    placeNumber();
+//     gameState = ["", 2, "", 2, 
+//                  2, 4, "", "", 
+//                  "", 2, "", "", 
+//                  "", "", "", 2];
+//     updateGameStatus();
 }
 
 function placeNumber() {
@@ -38,14 +38,17 @@ function placeNumber() {
     const num = Math.random() < 0.9 ? 2 : 4;
     let pickedCell = null; 
 
-    // generate another random index until it finds an empty cell if game is active
-    while (gameActive && !emptyCell(index)) {
-        index = Math.floor(Math.random() * 16);
-    }
+    // place another number if the game is still active
+    if (gameActive) {
+        // generate another random index until it finds an empty cell
+        while (!emptyCell(index)) {
+            index = Math.floor(Math.random() * 16);
+        }
 
-    gameState[index] = num;
-    pickedCell = cells[index];
-    pickedCell.innerHTML = num; 
+        gameState[index] = num;
+        pickedCell = cells[index];
+        pickedCell.innerHTML = num; 
+    }
 }
 
 function emptyCell(index) {
@@ -126,12 +129,12 @@ function moveLeft() {
 }
 
 function moveValuesInRowLeft(leftEnd, rightEnd) {
-    let curIndex = 0, nextIndex = 0; 
-    for (let i = 0; i < boardDimension; ++i) {
+    let nextIndex = 0; 
+    for (let i = 0; i < boardDimension; ++i) {  // iterates shifting process through each cell to get rid of leading empty cells
+        let k = 0;
         while (leadingEmptyCellsFromLeft(leftEnd + i, rightEnd)) {  // keep shifting cells over while there are leading empty cells
-            for (let j = 1; j < boardDimension; ++j) {  // go through each column
-                curIndex = leftEnd + j - 1;
-                nextIndex = leftEnd + j;
+            for (let curIndex = leftEnd + i; curIndex < rightEnd; ++curIndex) {  // go through each column
+                nextIndex = curIndex + 1;
                 if (emptyCell(curIndex) && !emptyCell(nextIndex)) {
                     gameState[curIndex] = gameState[nextIndex];
                     gameState[nextIndex] = "";
@@ -139,6 +142,8 @@ function moveValuesInRowLeft(leftEnd, rightEnd) {
                     continue;
                 }
             }
+            console.log("iteration left: " + k); 
+            k++;
         }
     }
 }
@@ -198,19 +203,21 @@ function moveRight() {
 }
 
 function moveValuesInRowRight(leftEnd, rightEnd) {
-    let curIndex = 0, lastIndex = 0; 
-    /// move from right to left
-    for (let i = 0; i < boardDimension; ++i) {
+    let curIndex = 0, lastIndex = 0, k = 0; 
+    /// move from left to right
+    for (let i = 0; i < boardDimension; ++i) {  // repeat shifting process from the next cell if needed (leading empty cells)
+        k = 0;
         while (leadingEmptyCellsFromRight(rightEnd - i, leftEnd)) {  // keep shifting cells over while there are leading empty cells
-            for (let j = 1; j < boardDimension; ++j) {  // go through each column
-                curIndex = rightEnd - j + 1;
-                lastIndex = rightEnd - j;
+            for (let curIndex = rightEnd - i; curIndex > leftEnd; --curIndex) {  // go through each column
+                lastIndex = curIndex - 1;
                 if (emptyCell(curIndex) && !emptyCell(lastIndex)) {
                     gameState[curIndex] = gameState[lastIndex];
                     gameState[lastIndex] = "";
                 } else if (emptyCell[curIndex] && emptyCell(lastIndex)) {
                     continue;
                 }
+                console.log("iteration right: " + k);
+                k++;
             }
         }
     }
@@ -269,7 +276,7 @@ function moveUp() {
 
 function moveValuesInRowUp() {
     let curIndex = 0, nextIndex = 0; 
-    for (let i = 0; i < boardDimension; ++i) {
+    for (let i = 0; i < boardDimension; ++i) {  // repeat shifting process from the next cell if needed (leading empty cells)
         // while (leadingEmptyCellsFromTop(upBoundary + i, downBoundary)) {  // keep shifting cells d while there are leading empty cells
             for (let j = 1; j < boardDimension; ++j) {  // go through each column
                 curIndex = leftEnd + j - 1;
@@ -292,28 +299,65 @@ function moveDown() {
         // shift values as far right as they can go (either hits the wall or other cells)
         moveValuesInRowDown(upBoundary[i], downBoundary[i]);
         // add the values from right to left if the cells are the same value 
-        // addValuesInRowDown(rightBoundary[i]);
+        addValuesInRowDown(downBoundary[i], upBoundary[i]);
         // shift the values as far right as they can go again
-        // moveValuesInRowDown(leftBoundary[i], rightBoundary[i]);
+        moveValuesInRowDown(upBoundary[i], downBoundary[i]);
     }
 }
 
 function moveValuesInRowDown(upEnd, downEnd) {
-    let curIndex = 0, nextIndex = 0;
-    // start from the bottom and shift values down one at a time
-    for (let i = 0; i < boardDimension; ++i) {
-        // while (leadingEmptyCellsFromTop(upEnd + i, downEnd)) {  // keep shifting cells d while there are leading empty cells
-            for (let j = 0; j + downEnd < upEnd; j -= 4) {  // go through each row (cells are 4 indices apart)
-                curIndex = downEnd + j;
-                nextIndex = downEnd + j - 4;
+    let curIndex = 0, nextIndex = 0, k = 0;
+    // start from the bottom and shift values down from one above one at a time
+    for (let i = 0; i < downEnd; i += 4) {  // repeat shifting process from the next cell if needed (leading empty)
+        while (leadingEmptyCellsFromBottom(downEnd - i, upEnd)) {  // keep shifting cells while there are leading empty cells
+            for (let curIndex = downEnd - i; curIndex > upEnd; curIndex -= 4) {  // go through each row (cells are 4 indices apart)
+                nextIndex = curIndex - 4;
                 if (emptyCell(curIndex) && !emptyCell(nextIndex)) {
                     gameState[curIndex] = gameState[nextIndex];
                     gameState[nextIndex] = "";
                 } else if (emptyCell[curIndex] && emptyCell(nextIndex)) {
                     continue;
                 }
+                console.log("iteration: " + k);
+                k++;
             }
-        // }
+        }
+    }
+}
+
+function leadingEmptyCellsFromBottom(downEnd, upEnd) {
+    // Go through row and see if there are spaces before the first cell that a value
+    // Make sure that there are values in the row, otherwise there are no leading empty cells
+    let firstFilledCellIndex = -1; 
+    let empty = false; 
+    for (let curIndex = downEnd; curIndex >= upEnd; curIndex -= 4) {  // while the current index is less than or equal to the down wall's index
+        if (!emptyCell(curIndex) && curIndex == downEnd) {  // no leading empty cells if first one is filled
+            return false; 
+        } else if (!emptyCell(curIndex) && curIndex != downEnd) {
+            firstFilledCellIndex = curIndex;
+        } else if (emptyCell(curIndex)) {  // if empty cell is encountered, at least one leading empty cell
+            empty = true;
+        }
+    }
+    if (empty && firstFilledCellIndex != -1) {
+        return true;
+    } else {  // row was empty so there are no leading empty cells 
+        return false;
+    }
+}
+
+function addValuesInRowDown(downEnd, upEnd) {
+    let nextIndex = 0, value = 0;
+    for (let curIndex = downEnd; curIndex >= upEnd; curIndex -= 4) {
+        nextIndex = curIndex - 4; 
+        // Add up the values if the adjacent cells are the same and store them in the index of the current cell
+        // and make the other cell blank so you can move the cells over after
+        if (sameNumber(curIndex, nextIndex)) {
+            value = gameState[curIndex] + gameState[nextIndex];
+            // value = gameState[curIndex] * 2;
+            gameState[curIndex] = value; 
+            gameState[nextIndex] = ""; 
+        }   
     }
 }
 
