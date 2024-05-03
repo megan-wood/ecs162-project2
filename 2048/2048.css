@@ -40,7 +40,7 @@ h2 {
     font-size: 30px;
 }
 
-.score {
+#score {
     text-align: center;
     margin: auto;
     width: 100px;
@@ -65,4 +65,8 @@ h2 {
     margin-top: 0px;
     height: 22px;
     margin-bottom: 10px;
+}
+
+.new-cell {
+    background-color: pink;
 }
