@@ -10,7 +10,7 @@ canvas {
     display: block;
     margin: 50px auto;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-image: url('assets/Flappy_Bird_Background.png');
+    background-image: url('../images/Flappy_Bird_Background.png');
     background-size: cover;
     background-repeat: no-repeat;
     /* we will make the end menu overlap the game canvas, so we need here a lower z-index */
