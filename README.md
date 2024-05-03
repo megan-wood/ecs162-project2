@@ -1,6 +1,6 @@
 hello this is our project for the GAME ARACDE
 
-there are:
+based on some nostaligic games form the past for all ages, there are:
 - tictactoe (by prof posentt)
 - wordle
 - 2048
