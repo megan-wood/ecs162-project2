@@ -70,3 +70,47 @@ h2 {
 .new-cell {
     background-color: pink;
 }
+
+.val-2 {
+    background-color: rgb(255, 183, 183);
+}
+
+.val-4 {
+    background-color: rgb(255, 199, 164); 
+}
+
+.val-8 {
+    background-color: rgb(255, 242, 157);
+}
+
+.val-16 {
+    background-color: rgb(169, 255, 169);
+}
+
+.val-32 {
+    background-color: rgb(160, 206, 255);
+}
+
+.val-64 {
+    background-color: rgb(203, 171, 255);
+}
+
+.val-128 {
+    background-color: rgb(143, 236, 255);
+}
+
+.val-256 {
+    background-color: rgb(214, 127, 255);
+}
+
+.val-512 {
+    background-color: rgb(105, 255, 163);
+}
+
+.val-1024 {
+    background-color: rgb(43, 175, 246);
+}
+
+.val-2048 {
+    background-color: rgb(168, 148, 255);
+}

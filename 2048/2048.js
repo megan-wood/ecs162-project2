@@ -6,6 +6,7 @@ let gameState = ["", "", "", "",
                  "", "", "", ""];
 const boardDimension = 4;
 let score = 0;
+let attemptingMove = false;
 
 // Event listeners to handle the start of game and keyboard interaction
 document.addEventListener("DOMContentLoaded", () => {
@@ -47,8 +48,8 @@ function placeNumber() {
         gameState[index] = num;
         pickedCell = cells[index];
         pickedCell.innerHTML = num; 
+        updateCellColor(pickedCell, num);
     }
-    return pickedCell;
 }
 
 function emptyCell(index, grid) {
@@ -61,7 +62,7 @@ function handleKeydown(keyboardEvent) {
     // const clickedCellIndex = parseInt(pressedKey.getAttribute("data-cell-index"));
     if (gameActive && validDirection(direction)) {
         keyboardEvent.preventDefault();  // prevents pressing the arrow keys from scrolling the page
-        document.getElementById('results').innerText += " " + keyboardEvent.key;
+        // document.getElementById('results').innerText += " " + keyboardEvent.key;
         validMove = handleArrowKey(direction);
         updateGameStatus();  // updates score and checks if the game is over (won or filled board)
         if (validMove) {
@@ -89,19 +90,45 @@ function handleArrowKey(key) {
     //    const gameStateBeforeMove = gameState;
     const gameStateBeforeMove = gameState.slice();
     let attemptMoveGameState = gameState.slice();
+    let succesfulAttempt = false; 
     if (key === "ArrowLeft") {
-        moveLeft(attemptMoveGameState); 
+        if (attemptMove("left", attemptMoveGameState, gameStateBeforeMove)) {
+            moveLeft(gameState); 
+            return true;
+        }
     } else if (key === "ArrowRight") {
-        moveRight(attemptMoveGameState);
+        if (attemptMove("right", attemptMoveGameState, gameStateBeforeMove)) {
+            moveRight(gameState);
+            return true;
+        }
     } else if (key === "ArrowUp") {
-        moveUp(attemptMoveGameState);
+        if (attemptMove("up", attemptMoveGameState, gameStateBeforeMove)) {
+            moveUp(gameState);
+            return true;
+        }
     } else {  // key is ArrowDown
-        moveDown(attemptMoveGameState);
+        if (attemptMove("down", attemptMoveGameState, gameStateBeforeMove)) {
+            moveDown(gameState);
+            return true; 
+        }
     }
+    return false; 
+}
 
-    if (moveIsValid(attemptMoveGameState, gameStateBeforeMove)) {
-        gameState = attemptMoveGameState.slice();
-        return true;
+function attemptMove(direction, attemptGrid, gameStateBeforeMove) {
+    attemptingMove = true; 
+    if (direction === "left") {
+        moveLeft(attemptGrid);
+    } else if (direction === "right") {
+        moveRight(attemptGrid);
+    } else if (direction === "up") {
+        moveUp(attemptGrid);
+    } else {
+        moveDown(attemptGrid);
+    }
+    attemptingMove = false;
+    if (moveIsValid(attemptGrid, gameStateBeforeMove)) {
+        return true; 
     }
     return false; 
 }
@@ -125,13 +152,28 @@ function sameNumber(i, j, grid) {
 }
 
 function updateGameStatus() {
-    // Update the board on the webpage
+    // Update the board on the webpage and change the color of the cell for each number
     for (let i = 0; i < gameState.length; ++i) {
         cells[i].innerHTML = gameState[i];
+        updateCellColor(cells[i], gameState[i]);
     }
     // Update the score on the webpage
-    console.log("score: " + score);
     document.getElementById("score-value").innerHTML = score;
+}
+
+function updateCellColor(cell, value) {
+    removeColorClasses(cell);  // remove any existing colors
+    if (value != "") {
+        cell.classList.add("val-" + value);  // change the color for each number
+    }
+}
+
+function removeColorClasses(cell) {
+    for (let i = 0; i < cell.classList.length; ++i) {
+        if (cell.classList[i] != "cell") {
+            cell.classList.remove(cell.classList[i]);
+        }
+    }
 }
 
 function isGameActive() {
@@ -260,9 +302,9 @@ function addValuesInRowLeft(leftEnd, grid) {
         // and make the other cell blank so you can move the cells over after
         if (sameNumber(curIndex, nextIndex, grid)) {
             value = grid[curIndex] + grid[nextIndex];
-            score += Number(value);
-            console.log("score: " + score);
-            // value = gameState[curIndex] * 2;
+            if (!attemptingMove) {
+                score += Number(value);
+            }
             grid[curIndex] = value; 
             grid[nextIndex] = ""; 
         }   
@@ -330,8 +372,9 @@ function addValuesInRowRight(rightEnd, grid) {
         // and make the other cell blank so you can move the cells over after
         if (sameNumber(curIndex, lastIndex, grid)) {
             value = grid[curIndex] + grid[lastIndex];
-            score += Number(value);
-            // value = gameState[curIndex] * 2;
+            if (!attemptingMove) {
+                score += Number(value);
+            }
             grid[curIndex] = value; 
             grid[lastIndex] = ""; 
         } 
@@ -374,8 +417,9 @@ function addValuesInRowUp(downEnd, upEnd, grid) {
         // and make the other cell blank so you can move the cells over after
         if (sameNumber(curIndex, nextIndex, grid)) {
             value = grid[curIndex] + grid[nextIndex];
-            score += Number(value);
-            // value = gameState[curIndex] * 2;
+            if (!attemptingMove) {
+                score += Number(value);
+            }
             grid[curIndex] = value; 
             grid[nextIndex] = ""; 
         }   
@@ -461,7 +505,9 @@ function addValuesInRowDown(downEnd, upEnd, grid) {
         // and make the other cell blank so you can move the cells over after
         if (sameNumber(curIndex, nextIndex, grid)) {
             value = grid[curIndex] + grid[nextIndex];
-            score += Number(value);
+            if (!attemptingMove) {
+                score += Number(value);
+            }
             // value = gameState[curIndex] * 2;
             grid[curIndex] = value; 
             grid[nextIndex] = ""; 

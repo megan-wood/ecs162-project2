@@ -94,7 +94,11 @@ h2 {
 }
 
 footer {
-    margin: 8px; 
+    margin: 0px; 
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 5px;
 }
 
 @media (max-width: 500px) {
