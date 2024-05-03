@@ -101,21 +101,21 @@ function compareWord() {
     for (let i = 0; i < word.length; i++) {
         let cell = document.getElementsByClassName("cell")[row + i];
         
-        if (temp.search(guess[i]) === -1) {
+        if (temp.search(guess.charAt(i)) === -1) {
             //change color to grey
             cell.style.backgroundColor = "grey";
             cell.style.color = "white";
         } else {
-            if (guess[i] === word[i]) {
+            if (guess.charAt(i)=== word.charAt(i)) {
                 // change to green
                 cell.style.backgroundColor = "green";
                 cell.style.color = "white";
                 correctIndex++;
-                temp.replace(temp[i], '#');
+                temp = temp.replace(temp.charAt(i), '#');
             } else {
                 // change to yellow
                 cell.style.backgroundColor = "yellow";
-                temp.replace(temp[i], '#');
+                temp = temp.replace(temp.charAt(i), '#');
             } 
             
         }
