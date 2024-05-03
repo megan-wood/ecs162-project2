@@ -10,7 +10,7 @@ let word = words[Math.floor(Math.random() * words.length)]; //mb change so it re
 let currGuess = [];
 let index = 0;
 let remainingTries = TRIES;
-let gameActive = true; // not quite sure if this is what we want yet
+let gameActive = false; 
 let gameState = ["", "", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "",     
@@ -21,12 +21,13 @@ let gameState = ["", "", "", "", "",
 
 // Event listeners to handle game start and cell interaction
 document.addEventListener('DOMContentLoaded', () => {
-    //document.getElementById('newButton').addEventListener('click', newGame); // to start the game
+    playGame();
     document.addEventListener('keydown', handleKeyDown);
-    //button = document.getElementById('newGameButton').addEventListener('click', newGame);
+    button = document.getElementById('newGameButton').addEventListener('click', playGame);
 });
 
-function newGame() {
+function playGame() {
+    gameActive = true;
     word = words[Math.floor(Math.random() * words.length)]; 
     currGuess = []; 
     index = 0;
@@ -102,7 +103,7 @@ function compareWord() {
         let cell = document.getElementsByClassName("cell")[row + i];
         pos = temp.search(guess.charAt(i));
         
-        if (pos === -1) {
+        if (pos === -1) {   
             //change color to grey
             cell.style.backgroundColor = "grey";
             cell.style.color = "white";
@@ -121,7 +122,7 @@ function compareWord() {
             
         }
 
-        console.log(temp);
+        //console.log(temp);
     }
 
     remainingTries--;

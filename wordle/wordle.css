@@ -25,7 +25,7 @@
     color: #444; /* Default text color */
 }
 
-.keyboard{
+#keyboard{
     padding: 20px;
     position: center;
     display: grid;
@@ -58,4 +58,14 @@
     padding: 0px;
     margin: 0px;
 }  
+
+@media (max-width: 460px) {
+    .cell {
+        height: 80px;
+    }
+
+    .keyboard {
+        max-width: 50%;
+    }
+}
 
