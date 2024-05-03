@@ -1,3 +1,8 @@
+#resultDisplay{
+    font-size: 24px;
+    margin: 20px;
+}
+
 .board{
     display: grid;
     grid-template-columns: repeat(5, 1fr); /* Creates a 5x6 grid */
@@ -12,12 +17,11 @@
     border: 2px solid #333;
     font-size: 20px;
     font-weight: bold;
-    cursor: pointer;
     aspect-ratio: 1 / 1; /* Ensures that cells are square */
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 50px; 
+    height: 70px; 
     color: #444; /* Default text color */
 }
 
@@ -27,22 +31,24 @@
     display: grid;
     grid-template-columns: repeat(26, 30px);
     grid-template-rows: repeat(3, 60px);
-    gap: 5px;
+    gap: 2.5px;
     justify-content: center;
     align-content: center;
 }
 
 .key {
-    background-color: rgb(243, 243, 243);
+    background-color: #fff;
     border: 2px solid black;
-    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
     grid-column: span 2;
     font-size: 20px;
     text-align: center;
-    padding-top: 17px;
     align-items: center;
     justify-content: center
+    
 }
+
 
 .game-play-area {
     display: flex;
@@ -52,3 +58,4 @@
     padding: 0px;
     margin: 0px;
 }  
+

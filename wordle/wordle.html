@@ -23,6 +23,7 @@
     </header>
     <div id="gameContainer" class="game-play-area">
         <h2>Wordle</h2>
+        <div id="resultDisplay"></div>
        <div id = "gameBoard" class="board">
              <!-- 30 cells for the game -->
             <div class="cell" data-cell-index="0"></div>
@@ -59,33 +60,39 @@
 
         <div class="keyboard"> 
             <!-- 26 alphabet keys + enter and back keys -->
-            <div class="key" data-cell-index="Q"></div>
-            <div class="key" data-cell-index="W"></div>
-            <div class="key" data-cell-index="E"></div>
-            <div class="key" data-cell-index="R"></div>
-            <div class="key" data-cell-index="T"></div>
-            <div class="key" data-cell-index="Y"></div>
-            <div class="key" data-cell-index="U"></div>
-            <div class="key" data-cell-index="I"></div>
-            <div class="key" data-cell-index="O"></div>
-            <div class="key" data-cell-index="P"></div>
-            <div class="key" data-cell-index="A"></div>
-            <div class="key" data-cell-index="S"></div>
-            <div class="key" data-cell-index="D"></div>
-            <div class="key" data-cell-index="F"></div>
-            <div class="key" data-cell-index="G"></div>
-            <div class="key" data-cell-index="H"></div>
-            <div class="key" data-cell-index="J"></div>
-            <div class="key" data-cell-index="K"></div>
-            <div class="key" data-cell-index="L"></div>
-            <div class="key" data-cell-index="Z"></div>
-            <div class="key" data-cell-index="X"></div>
-            <div class="key" data-cell-index="C"></div>
-            <div class="key" data-cell-index="V"></div>
-            <div class="key" data-cell-index="B"></div>
-            <div class="key" data-cell-index="N"></div>
-            <div class="key" data-cell-index="M"></div>
+         
+                <div class="key" data-cell-index="Q">Q</div>
+                <div class="key" data-cell-index="W">W</div>
+                <div class="key" data-cell-index="E">E</div>
+                <div class="key" data-cell-index="R">R</div>
+                <div class="key" data-cell-index="T">T</div>
+                <div class="key" data-cell-index="Y">Y</div>
+                <div class="key" data-cell-index="U">U</div>
+                <div class="key" data-cell-index="I">I</div>
+                <div class="key" data-cell-index="O">O</div>
+                <div class="key" data-cell-index="P">P</div>
+           
+                <div class="key" data-cell-index="A">A</div>
+                <div class="key" data-cell-index="S">S</div>
+                <div class="key" data-cell-index="D">D</div>
+                <div class="key" data-cell-index="F">F</div>
+                <div class="key" data-cell-index="G">G</div>
+                <div class="key" data-cell-index="H">H</div>
+                <div class="key" data-cell-index="J">J</div>
+                <div class="key" data-cell-index="K">K</div>
+                <div class="key" data-cell-index="L">L</div>
+        
+                <div class="key" data-cell-index="Z">Z</div>
+                <div class="key" data-cell-index="X">X</div>
+                <div class="key" data-cell-index="C">C</div>
+                <div class="key" data-cell-index="V">V</div>
+                <div class="key" data-cell-index="B">B</div>
+                <div class="key" data-cell-index="N">N</div>
+                <div class="key" data-cell-index="M">M</div>
+                
         </div>
+
+        <button id="newGameButton" onclick="newGame()">New Game</button>
     </div>
 
     
