@@ -120,7 +120,7 @@ function compareWord() {
             
         }
 
-        console.log(temp);
+        //console.log(temp);
     }
 
     remainingTries--;
