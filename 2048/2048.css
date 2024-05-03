@@ -67,11 +67,27 @@ h2 {
     margin-bottom: 10px;
 }
 
-#button {
-    margin: auto;
-    text-align: center;
+
+#button-container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-bottom: 10px;
 }
 
+#restartButton {
+    background-color: rgb(230, 230, 250);
+    padding: 5px 10px 5px 10px;
+    border-radius: 5px;
+    border: rgb(128, 0, 128) solid;
+    opacity: 0.8;
+}
+
+#restartButton:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 rgba(128, 0, 128, 0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
 .new-cell {
     background-color: pink;
 }

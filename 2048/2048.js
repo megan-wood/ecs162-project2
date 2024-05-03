@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     playGame();
     // document.getElementById("board").addEventListener("keydown", handleKeydown);
     document.addEventListener("keydown", handleKeydown);
-    // document.getElementById('restartButton').addEventListener("click", resartGame);
+    document.getElementById('restartButton').addEventListener("click", playGame);
 });
 
 function playGame() {
@@ -26,6 +26,8 @@ function playGame() {
         cell.innerHTML = "";  // Reset value in cell 
         cell.className = "cell";  // Reset classes
     })
+    // Set the score on the webpage
+    document.getElementById("score-value").innerHTML = score;
     // Generate first two initial values on the board 
     placeNumber();
     placeNumber();
