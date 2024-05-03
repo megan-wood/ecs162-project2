@@ -25,6 +25,7 @@ function playGame() {
         cell.innerHTML = "";  // Reset value in cell 
         cell.className = "cell";  // Reset classes
     })
+    document.getElementById("results").innerHTML = "";
     // Set the score on the webpage
     document.getElementById("score-value").innerHTML = score;
     // Generate first two initial values on the board 
