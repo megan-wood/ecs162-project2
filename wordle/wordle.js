@@ -23,7 +23,7 @@ let gameState = ["", "", "", "", "",
 document.addEventListener('DOMContentLoaded', () => {
     //document.getElementById('newButton').addEventListener('click', newGame); // to start the game
     document.addEventListener('keydown', handleKeyDown);
-    button = document.getElementById('newGameButton').addEventListener('click', newGame);
+    //button = document.getElementById('newGameButton').addEventListener('click', newGame);
 });
 
 function newGame() {
