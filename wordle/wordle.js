@@ -100,8 +100,9 @@ function compareWord() {
 
     for (let i = 0; i < word.length; i++) {
         let cell = document.getElementsByClassName("cell")[row + i];
+        pos = temp.search(guess.charAt(i));
         
-        if (temp.search(guess.charAt(i)) === -1) {
+        if (pos === -1) {
             //change color to grey
             cell.style.backgroundColor = "grey";
             cell.style.color = "white";
@@ -111,16 +112,16 @@ function compareWord() {
                 cell.style.backgroundColor = "green";
                 cell.style.color = "white";
                 correctIndex++;
-                temp = temp.replace(temp.charAt(i), '#');
+                temp = temp.replace(temp.charAt(pos), '#');
             } else {
                 // change to yellow
                 cell.style.backgroundColor = "yellow";
-                temp = temp.replace(temp.charAt(i), '#');
+                temp = temp.replace(temp.charAt(pos), '#');
             } 
             
         }
 
-        //console.log(temp);
+        console.log(temp);
     }
 
     remainingTries--;
