@@ -25,7 +25,7 @@
     color: #444; /* Default text color */
 }
 
-/*.keyboard{
+.keyboard{
     padding: 20px;
     position: center;
     display: grid;
@@ -47,7 +47,7 @@
     align-items: center;
     justify-content: center
     
-} */
+} 
 
 
 .game-play-area {
