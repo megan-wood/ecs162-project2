@@ -67,6 +67,7 @@ function handleKeydown(keyboardEvent) {
         if (validMove) {
             placeNumber();  // place another random number at a random empty cell
         }
+        isGameActive();
     }
 }
 
@@ -128,18 +129,19 @@ function updateGameStatus() {
     for (let i = 0; i < gameState.length; ++i) {
         cells[i].innerHTML = gameState[i];
     }
-
     // Update the score on the webpage
     console.log("score: " + score);
     document.getElementById("score-value").innerHTML = score;
+}
 
-    // Check if the game is still active
-    if (game_won() || game_is_over()) {
+function isGameActive() {
+    if (gameWon() || gameIsOver()) {
         gameActive = false; 
+        document.getElementById("results").innerHTML += " Game over.";
     }
 }
 
-function game_won() {
+function gameWon() {
     // game is won when there is a cell with value 2048 
     // can also reach the maximum value
     for (let i = 0; i < cells.length; ++i) {
@@ -151,28 +153,39 @@ function game_won() {
     return false; 
 }
 
-function game_is_over() {
-    if (board_full() && no_valid_moves()) {
+function gameIsOver() {
+    if (boardFull() && noValidMoves()) {
         return true;
     }
     return false;
     // return board_full();
 }
 
-function board_full() {
+function boardFull() {
     // go through all the cells andc check if they are empty, if true, then board is not empty
     for (let i = 0; i < cells.length; ++i) {
         if (cells[i].innerHTML === "") {
             return false; 
         }
     }
-    document.getElementById("results").innerHTML += " Game over."
+    document.getElementById("results").innerHTML += " Board is full."
     return true; 
 }
 
-function no_valid_moves() {
-    // Try to do all the moves and if they are not valid, there are no valid moves
-    
+function noValidMoves() {
+    // Try to do all the moves
+    let attemptLeft = gameState.slice(), attemptRight = gameState.slice(), 
+        attemptUp = gameState.slice(), attemptDown = gameState.slice(); 
+        moveLeft(attemptLeft);
+        moveRight(attemptRight);
+        moveUp(attemptUp);
+        moveDown(attemptDown);
+    // If none of the moves are valid, there are no valid moves
+    if (!moveIsValid(attemptLeft, gameState) && !moveIsValid(attemptRight, gameState) &&
+        !moveIsValid(attemptUp, gameState) && !moveIsValid(attemptDown, gameState)) {
+        return true; 
+    }
+    return false; 
 }
 
 function moveLeft(grid) {
