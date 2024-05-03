@@ -1,9 +1,9 @@
 //import { words } from "list.js"; // this doesnt work because of the COS security error
 
-// due to COS error, here are 100 words the game will randomly choose from
+// due to COS error, here are 30 words the game will randomly choose from
 let words = ["about", "alert", "audio", "actor", "allow", "admit", "alive", "aside", "beach", "begin", 
             "being", "beads", "bells", "black", "cable", "cover", "carry", "claim", "crime", "cream", 
-            "chair", "every", "error", "equal", "extra" ]
+            "chair", "every", "error", "equal", "extra", "zebra", "horse", "ocean", "heart",  "peace"]
 const cells = document.querySelectorAll('.cell');
 const TRIES = 6;
 let word = words[Math.floor(Math.random() * words.length)]; //mb change so it resets w every new game
@@ -17,7 +17,6 @@ let gameState = ["", "", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", "",
                 "", "", "", "", ""];
-//console.log(word);
 
 // Event listeners to handle game start and cell interaction
 document.addEventListener('DOMContentLoaded', () => {
@@ -76,7 +75,7 @@ function placeLetter(key) {
     }
 
     key = key.toUpperCase();
-    let row =  (TRIES - remainingTries) * 5; // remaining = 1; tries = 6 index = 4 6, 5, 4, 3, 2, 21
+    let row =  (TRIES - remainingTries) * 5; 
     let cell = document.getElementsByClassName("cell")[row + index];
     cell.textContent = key;
     currGuess.push(key);
@@ -84,7 +83,7 @@ function placeLetter(key) {
 }
 
 function deleteLetter() {
-    let row =  (TRIES - remainingTries) * 5; // remaining = 1; tries = 6 index = 4 6, 5, 4, 3, 2, 21
+    let row =  (TRIES - remainingTries) * 5; 
     let cell = document.getElementsByClassName("cell")[row + index];
     cell.textContent = "";
     currGuess.pop();    

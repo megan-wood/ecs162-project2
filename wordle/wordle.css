@@ -49,7 +49,6 @@
     
 } 
 
-
 .game-play-area {
     display: flex;
     flex-direction: column;
@@ -57,7 +56,22 @@
     align-items: center;
     padding: 0px;
     margin: 0px;
-}  
+} 
+
+#newGameButton {
+    background-color: rgb(230, 230, 250);
+    padding: 5px 10px 5px 10px;
+    border-radius: 10px;
+    border: "blue";
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+#newGameButton:hover {
+    opacity: 1;
+    box-shadow: 0 12px 16px 0 "navy", 0 17px 50px 0 rgba(0,0,0,0.19);
+
+}
 
 @media (max-width: 460px) {
     .cell {
