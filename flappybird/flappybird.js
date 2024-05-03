@@ -45,13 +45,10 @@ function handleKeyDown(keyboardEvent) {
     if (pressedKey === "ArrowUp") {
         keyboardEvent.preventDefault();  // prevents pressing the space bar from scrolling the page
         birdVelocity = FLAP_SPEED;
+    } else if (pressedKey === "ArrowDown") {
+        keyboardEvent.preventDefault();  // prevents pressing the space bar from scrolling the page
     }
 }
-// document.body.onkeyup = function(e) {
-//     if (e.code == 'Space') {
-//         birdVelocity = FLAP_SPEED;
-//     }
-// }
 
 // lets us restart the game if we hit game-over
 document.getElementById('restart-button').addEventListener('click', function() {
