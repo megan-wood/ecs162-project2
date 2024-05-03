@@ -30,11 +30,11 @@ function playGame() {
     // Generate first two initial values on the board 
     placeNumber();
     placeNumber();
-//     gameState = ["", 2, "", 2, 
-//                  2, 4, "", "", 
-//                  "", 2, "", "", 
-//                  "", "", "", 2];
-//     updateGameStatus();
+    // gameState = ["", 2, "", 2, 
+    //              2, 4, "", "", 
+    //              "", 1024, 1024, "", 
+    //              4, 8, 32, 64];
+    // updateGameStatus();
 }
 
 function placeNumber() {
@@ -178,7 +178,9 @@ function removeColorClasses(cell) {
 }
 
 function isGameActive() {
-    if (gameWon() || gameIsOver()) {
+    if (gameWon()) {
+        gameActive = false; 
+    } else if (gameIsOver()) {
         gameActive = false; 
         document.getElementById("results").innerHTML += " Game over. Click the button below to play again.";
     }
@@ -188,7 +190,7 @@ function gameWon() {
     // game is won when there is a cell with value 2048 
     // can also reach the maximum value
     for (let i = 0; i < cells.length; ++i) {
-        if (cells[i].innerHTML === 2048) {
+        if (cells[i].innerHTML === "2048") {
             document.getElementById("results").innerHTML += " You won!";
             return true; 
         }
