@@ -67,7 +67,10 @@ h2 {
     margin-bottom: 10px;
 }
 
-
+#results {
+    text-align: center;
+}
+    
 #button-container {
     display: flex;
     justify-content: center;

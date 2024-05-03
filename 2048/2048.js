@@ -11,7 +11,6 @@ let attemptingMove = false;
 // Event listeners to handle the start of game and keyboard interaction
 document.addEventListener("DOMContentLoaded", () => {
     playGame();
-    // document.getElementById("board").addEventListener("keydown", handleKeydown);
     document.addEventListener("keydown", handleKeydown);
     document.getElementById('restartButton').addEventListener("click", playGame);
 });
@@ -64,10 +63,8 @@ function emptyCell(index, grid) {
 function handleKeydown(keyboardEvent) {
     const direction = keyboardEvent.key;
     let validMove = false;
-    // const clickedCellIndex = parseInt(pressedKey.getAttribute("data-cell-index"));
     if (gameActive && validDirection(direction)) {
         keyboardEvent.preventDefault();  // prevents pressing the arrow keys from scrolling the page
-        // document.getElementById('results').innerText += " " + keyboardEvent.key;
         validMove = handleArrowKey(direction);
         updateGameStatus();  // updates score and checks if the game is over (won or filled board)
         if (validMove) {
@@ -92,7 +89,6 @@ function handleArrowKey(key) {
        of motion combine.
        Check if the move is valid, meaning that there are tiles that can move in 
        the chosen direction.  */
-    //    const gameStateBeforeMove = gameState;
     const gameStateBeforeMove = gameState.slice();
     let attemptMoveGameState = gameState.slice();
     let succesfulAttempt = false; 
@@ -184,7 +180,7 @@ function removeColorClasses(cell) {
 function isGameActive() {
     if (gameWon() || gameIsOver()) {
         gameActive = false; 
-        document.getElementById("results").innerHTML += " Game over.";
+        document.getElementById("results").innerHTML += " Game over. Click the button below to play again.";
     }
 }
 
@@ -205,11 +201,10 @@ function gameIsOver() {
         return true;
     }
     return false;
-    // return board_full();
 }
 
 function boardFull() {
-    // go through all the cells andc check if they are empty, if true, then board is not empty
+    // go through all the cells and check if they are empty, if true, then board is not empty
     for (let i = 0; i < cells.length; ++i) {
         if (cells[i].innerHTML === "") {
             return false; 
