@@ -67,6 +67,11 @@ h2 {
     margin-bottom: 10px;
 }
 
+#button {
+    margin: auto;
+    text-align: center;
+}
+
 .new-cell {
     background-color: pink;
 }

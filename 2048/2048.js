@@ -17,8 +17,11 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function playGame() {
+    // Set all the values for a new game
     gameActive = true;
     gameState = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+    score = 0;
+    attemptingMove = false;
     cells.forEach(cell => {
         cell.innerHTML = "";  // Reset value in cell 
         cell.className = "cell";  // Reset classes
