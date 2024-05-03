@@ -114,3 +114,23 @@ h2 {
 .val-2048 {
     background-color: rgb(168, 148, 255);
 }
+
+@media (max-width: 460px) {
+    .cell {
+        height: 80px;
+    }
+
+    #board {
+        max-width: 50%; 
+    }
+}
+
+@media (max-width: 375px) {
+    .cell {
+        height: 64px;
+        font-size: 40px;
+    }
+    #board {
+        max-width: 75%;
+    }
+}

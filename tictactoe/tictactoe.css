@@ -48,3 +48,13 @@
     padding: 0px;
     margin: 0px;
 }  
+
+
+@media (max-width: 390px) {
+    .cell {
+        height: 80px; /* Set a fixed height for better visual */
+    }
+    .board {
+        max-width: 75%
+    }
+}

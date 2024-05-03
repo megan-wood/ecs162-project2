@@ -210,7 +210,6 @@ function boardFull() {
             return false; 
         }
     }
-    document.getElementById("results").innerHTML += " Board is full."
     return true; 
 }
 
