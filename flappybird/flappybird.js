@@ -5,7 +5,8 @@ const ctx = canvas.getContext("2d");
 const gameContainer = document.getElementById('game-container');
 
 const flappyImg = new Image();
-flappyImg.src = '../images/flappy_dunk.png';
+flappyImg.src = '../images/fish.png';
+flappyImg.classList.add("fish");
 
 //Game constants
 const FLAP_SPEED = -3; //Improves the fluidity and accuracy of the bird when moving around the screen
@@ -34,11 +35,23 @@ let highScore = 0;
 let scored = false;
 
 // lets us control the bird with the space key
-document.body.onkeyup = function(e) {
-    if (e.code == 'Space') {
+// Altered by creating a function that handles the keyUp and the bird is controlled with the arrow up key instead
+document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("keydown", handleKeyDown);
+});
+
+function handleKeyDown(keyboardEvent) {
+    const pressedKey = keyboardEvent.key;
+    if (pressedKey === "ArrowUp") {
+        keyboardEvent.preventDefault();  // prevents pressing the space bar from scrolling the page
         birdVelocity = FLAP_SPEED;
     }
 }
+// document.body.onkeyup = function(e) {
+//     if (e.code == 'Space') {
+//         birdVelocity = FLAP_SPEED;
+//     }
+// }
 
 // lets us restart the game if we hit game-over
 document.getElementById('restart-button').addEventListener('click', function() {

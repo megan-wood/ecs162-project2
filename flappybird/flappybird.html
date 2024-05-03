@@ -7,9 +7,20 @@
     <link rel="stylesheet" href="flappybird.css">
     <link rel="stylesheet" href="../style.css">
     <link href='https://fonts.googleapis.com/css?family=Barlow' rel='stylesheet'>
+    <link rel="icon" href= "../images/game-icon.png" type="image/x-icon"> 
     <title>Flappy Bird</title>
 </head>
 <body>
+    <header>
+        <h1 class="heading"><a href="../index.html">Game Arcade</a></h1>
+    </header>
+    <nav>
+        <ul class="nav-bar">
+            <li><a href="../index.html" class="inactive">Home</a></li>
+            <li><a href="#heading" class="inactive">About</a></li>
+            <li><a href="#heading" class="inactive">Game Directions</a></li>
+        </ul>
+    </nav>
     <div id="end-menu">
         <h1>Game-over!</h1>
         <p> Score: <span id="end-score"></span></p>
@@ -17,13 +28,12 @@
         <button id="restart-button">Restart</button>
     </div>
     <div id="game-container">
-        <canvas id="game-canvas" width="400" height="600"></canvas>
+        <canvas id="game-canvas" width="400" height="600"></canvas>></canvas>  <!-- Removed the CSS styling from HTML width="400" height="600" -->
         <div id="score-display">0</div>
     </div>
     <script src="flappybird.js"></script>
+    <footer>
+        <p>Adapted by Megan Wood and Jamie Hsi from code by Patrick (Github username: patlov). &nbsp; &nbsp; &nbsp; Copyright &copy;2024 Game Arcade</p>
+    </footer>
 </body>
 </html>
-<h1> That's it! Hope you enjoyed the simple Flappy Bird implementation!
-    Let me know! 
-    Thank you for watching! :-)
-</h1>

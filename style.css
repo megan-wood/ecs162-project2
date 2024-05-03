@@ -83,9 +83,10 @@ h2 {
 
 .games img {
     height: 200px;
-    padding: 20px;
-    border-radius: 50px;
-    margin: auto;
+    /* padding: 20px; */
+    border-radius: 30px;
+    margin: 10px;
+    border: black solid 2px;
 }
 
 .row1, .row2 {
@@ -107,6 +108,10 @@ footer {
     background-color: black;
     color: white;
     padding: 5px;
+}
+
+.directions {
+    padding: 30px;
 }
 
 @media (max-width: 500px) {
