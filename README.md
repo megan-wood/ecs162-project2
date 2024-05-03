@@ -1,4 +1,4 @@
-hello this is our project for the GAME ARACDE
+hello this is our project for the GAME ARCADE
 
 based on some nostaligic games form the past for all ages, there are:
 - tictactoe (by prof posentt)
